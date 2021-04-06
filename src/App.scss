@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+    list-style: none;
+    outline: none; // a enlever
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.active{
+    color: white;
+}
+
+body{
+    overflow-x: hidden;
+}
+
+// COLOR
+:root{
+    --fontTitle : 'Shippori Mincho B1', serif;
+
+    --colorTitle : #303132;    
+    --colorSubtitle : #afb0b0;
+    --colorLinkInfo : #cbcdcf;
+    --colorText : #585959;
+
+    --backgroundDark : #535151;;
+    --backgroundLight : #e5e5e5;
+}
+
+// .InputRangeClassNames .inputRange{
+//     height: 50px;
+//     width: 50px;
+//     background-color: red;
+// }
+
+// .inputRange{
+//     height: 50px;
+//     width: 50px;
+//     background-color: red;
+// }

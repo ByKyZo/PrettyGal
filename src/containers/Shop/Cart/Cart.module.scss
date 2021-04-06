@@ -1,0 +1,92 @@
+.background{
+    top: 0;
+    left: 0;
+    position: fixed;
+    background-color: rgba(0, 0, 0, .7);
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    opacity: 0;
+    transition: 0.5s;
+    .cart{
+        position: absolute;
+        height: 100vh;
+        width: 350px;
+        background-color: white;
+        right: -350px;
+        top: 0;
+        transition: right 0.5s;
+        .top{
+            height: 100px;
+            background-color: var(--colorTitle);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            h2{
+                font-weight: 400;
+                letter-spacing: 1px;            
+            }
+            .close{
+                color: white;
+                position: absolute;
+                left: 40px;
+                border: none;
+                background-color: transparent;
+                font-size: 1.4rem;
+                cursor: pointer;
+            }
+        }
+        .content{
+            padding: 0 40px;          
+            height: 60%;
+            width: 100%;
+            overflow-y: scroll;
+            &::-webkit-scrollbar{
+                display: none;
+            }
+        }
+        .bottom{
+            width: 100%;
+            height: 25%;
+            .price_wrapper{
+                padding: 40px;
+                border-bottom: 1px solid rgba(0, 0, 0, .2);
+                color: var(--colorText);
+                font-size: 1.6rem;
+                h3{
+                    font-weight: 400; 
+                    margin-bottom: 10px;           
+                }
+
+            }
+            .viewCart{
+                padding: 40px;
+                button{
+                    padding: 12px;
+                    width: 100%;
+                    color: white;
+                    border: none;
+                    background-color: var(--colorTitle);
+                    font-size: 0.9rem;
+                    font-weight: 500;
+                    letter-spacing: 1px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+// ANIMER LE CHEVRON
+
+.open{
+    &.background{
+        opacity: 1 !important;
+        z-index: 999 !important;
+    }  
+    .cart{
+        right: 0;
+    }
+}

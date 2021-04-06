@@ -1,0 +1,53 @@
+.presentation{
+
+    &_sale{
+        position: relative;
+        cursor: pointer;
+        &_text{
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 60px;
+            font-family: var(--fontTitle);
+            color: var(--colorTitle);
+            font-weight: 500;
+            font-size: 3.1rem;
+            letter-spacing: 8px;
+            transition: opacity 0.3s;
+            &:hover{
+                transition: 0.3s;
+                opacity: .6;
+            }
+        }
+    }
+
+    &_header{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 90px;
+        color: var(--colorTitle);
+        &_title{
+            font-family: var(--fontTitle);
+            letter-spacing: 3px;
+            font-size: 2.7rem;
+        }
+        &_subtitle{
+            font-weight: 400;
+            letter-spacing: 5px;
+            font-size: 1.3rem;
+        }
+        .divider{
+            height: 2px;
+            width: 50px;
+            background-color: var(--colorTitle);
+            margin: 40px 0;
+        }
+    }
+
+    &_content{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
