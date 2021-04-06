@@ -1,0 +1,11 @@
+.filter{
+    width: 200px;
+    margin: 0 25px;
+    .title{
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, .2);
+        color: var(--colorText);
+        font-weight: 400;
+        font-size: 1.7rem;
+    }
+}

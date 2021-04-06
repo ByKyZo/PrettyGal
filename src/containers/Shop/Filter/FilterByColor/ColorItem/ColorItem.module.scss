@@ -1,0 +1,18 @@
+.color{
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, .2);
+    cursor: pointer;
+    &:hover{
+        transition: opacity 0.1s;
+        opacity: .5;
+    }
+}
+
+.colorInput:checked{
+    ~.color{
+        box-shadow: 0 0 0 2px white,
+        0 0 0 3px rgba(0, 0, 0, .5);
+    }
+}

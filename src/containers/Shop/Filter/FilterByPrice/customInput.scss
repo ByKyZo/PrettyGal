@@ -1,0 +1,22 @@
+
+.input-range__slider{
+    background-color: var(--backgroundDark) !important;
+    border: none !important;
+}
+
+.input-range__track--background {
+    width: 85%;
+    margin: 0 auto !important;
+}
+
+.input-range__slider-container{
+    transition: none !important;
+}
+.input-range__track{
+    transition: none !important;
+    height: 2px !important;
+}
+.input-range__track--active{
+    height: 2px !important;
+    background-color: var(--backgroundDark) !important;
+}

@@ -1,0 +1,32 @@
+.label{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    padding: 3px 0;
+    .customCheckBox{
+        height: 14px;
+        width: 14px;    
+        border: 1px solid rgba(0, 0, 0, .3);
+        display: inline-block;
+        margin-right: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .checkMark{
+            font-size: 0.5rem;
+            opacity: .8;
+            display: none;
+        }
+    }    
+}
+
+
+.checkBoxSize:checked{
+    ~.customCheckBox{
+        position: relative;
+        .checkMark{
+            display: flex;
+        }
+    }
+}

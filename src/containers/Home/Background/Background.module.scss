@@ -1,0 +1,44 @@
+.container{
+    margin-bottom: 110px;
+    &_banner{
+        background-image: url('../../../assets/accueil.webp');
+        background-position: center;
+        height: 600px;
+        display: flex;
+        justify-content: center;
+        align-items: center;        
+    }
+    &_modalShop{
+        background-color: rgba(255, 255, 255, .5);
+        padding: 40px;
+        text-align: center;
+        &_title{
+            font-family: var(--fontTitle);
+            color: var(--colorTitle);
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+        }
+        &_btn{
+            border: none;
+            background-color: var(--colorTitle);
+            color: white;
+            padding: 12px 75px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s;
+            &:hover{
+                transition: 0.3s;
+                color: var(--colorTitle);
+                background-color: white;
+            }
+        }
+    }
+    .banner_delivery{
+        text-align: center;
+        background-color: var(--backgroundLight);
+        padding: 15px 0;
+        color: var(--colorTitle);
+        letter-spacing: 4px;
+    }   
+}

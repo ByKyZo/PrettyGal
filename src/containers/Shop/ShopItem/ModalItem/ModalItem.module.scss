@@ -1,0 +1,177 @@
+.modal{
+    width: 940px;
+    height: 620px;
+    position: absolute;
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 30px;
+    position: absolute;
+    &_background{
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        background-color: rgba(0, 0, 0, .5);
+        overflow: hidden;
+        z-index: 9999;
+    }
+    .close{
+        position: absolute;
+        display: flex;
+        border: none;
+        background-color: transparent;
+        right: 20px;
+        top: 20px;
+        cursor: pointer;
+    }
+    .content{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 40px;
+        .presentation{
+            .img{
+                width: 490px;
+                height: 490px;
+                img{
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .imgBonus{
+
+            }
+        }
+        .details{
+            position: relative;
+            .name{
+                font-weight: 400;
+                font-size: 1.9rem;
+                margin-bottom: 20px;
+            }
+            .price{
+                font-weight: 400;
+                margin-bottom: 20px;
+            }
+            .sku{
+                font-size: 0.7rem;
+                margin-bottom: 30px;
+            }
+            .colorPicker{
+                margin-top: 5px;
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                background-color: red;
+            }
+            .selectSize_wrapper{
+                margin: 20px 0;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                label{
+                    font-size: 0.9rem;
+                    margin-bottom: 5px;
+                }
+                .selectSize{
+                    padding: 10px;
+                    border-radius: 0;
+                    border: 1px solid rgba(0, 0, 0, .6);
+                    font-size: 1.1rem;
+                    cursor: pointer;
+                    option{
+                        opacity: .6;
+                    }
+                }
+                .errorInputEmpty{
+                    background-color: #df3131;
+                    padding: 8px 15px;
+                    color: white;
+                    position: absolute;
+                    bottom: -45px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    border-radius: 4px;
+                    font-size: 0.9rem;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
+                    &::before{
+                        content: '';
+                        position: absolute;
+                        border-bottom: 6px solid #df3131;
+                        border-left: 6px solid #df3131;
+                        border-right: 6px solid transparent;
+                        border-top: 6px solid transparent;
+                        top: -3px;
+                        left: 46%;
+                        transform: rotateZ(135deg);
+                    }
+                }
+            }
+            .quantity_wrapper{
+                display: flex;
+                flex-direction: column;
+                label{
+                    font-size: 0.9rem;
+                    margin-bottom: 5px;
+                }
+                .customQuantity{
+                    border: 1px solid rgba(0, 0, 0, .3);
+                    width: 70px ;
+                    height: 40px;
+                    display: flex;
+                    justify-content: space-evenly;
+                    .pad{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-around;
+                        opacity: 0;
+                        transition: opacity 0.3s;
+                        button{
+                            border: none;
+                            background-color: transparent;
+                            cursor: pointer;
+                            font-size: 0.6rem;
+                            opacity: .7;
+                        }
+                    }  
+                    &:hover{
+                        .pad{
+                            opacity: 1;
+                        }
+                    }   
+                    .quantity{
+                        width: 30px;
+                        height: 100%;
+                        border-radius: 0;
+                        border: none;
+                        &::-webkit-inner-spin-button{
+                            -webkit-appearance: none;
+                        }
+                        &::-webkit-outer-spin-button{
+                            -webkit-appearance: none;
+                    }              
+                }
+            }
+        }
+            .addCart_wrapper{
+                display: flex;
+                flex-direction: column;
+                margin-top: 55px;
+                button{
+                    padding: 15px;
+                    background-color: var(--backgroundDark);
+                    border: none;
+                    color: white;
+                    font-size: 1rem;
+                    margin-bottom: 10px;
+                    cursor: pointer;
+                }
+                span{
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
