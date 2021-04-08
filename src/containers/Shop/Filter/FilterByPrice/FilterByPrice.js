@@ -38,7 +38,7 @@ const FilterByPrice = (props) => {
                             formatLabel={value =>  ''}
                             ariaLabelledby={'test'}
                             ariaControls='test'
-                            step={3}
+                            step={0.01}
                             minValue={props.minMaxPrice[0]}
                             maxValue={props.minMaxPrice[1]}
                             value={{min : minRangeValue , max: maxRangeValue}}

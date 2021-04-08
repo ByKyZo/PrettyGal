@@ -10,64 +10,50 @@ import CustomCare from './containers/CustomerCare/CustomCare';
 import StockLists from './containers/StockLists/StockList';
 // import ShopItemDetails from './containers/Shop/ShopItem/ShopItemDetails/ShopItemDetails';
 import Cart from './containers/Shop/Cart/Cart';
-
-// EMPECHER D'ALLER EN DESSOUS DE 1 QUANTITE
+import Login from './containers/LoginModal/Login';
+import { UserContext } from './Context/User.context';
 
 const App = (props) => {
 
     const [cart , setCart] = useState(false);
 
-    const [cartItem , setCartItem] = useState([]);
+    const [isOpenLogin , setIsOpenLogin] = useState(false);
 
-    const handleAddItemToCart = (item) => {
-        let itemIndex = null;
-
-        itemIndex = (item.sizeSelected === '') ? cartItem.findIndex(el => el.id === item.id) : cartItem.findIndex(el => el.id === item.id && el.sizeSelected === item.sizeSelected);
-         
-        (itemIndex === -1) ? setCartItem([...cartItem, {...item}]) : setCartItem([...cartItem],cartItem[itemIndex].quantity += item.quantity);               
-    }
-
-    const handleRemoveItemToCart = (item) => {
-        const itemIndex = cartItem.findIndex(el => el.id === item.id && el.sizeSelected === item.sizeSelected);
-        const newCartList = [...cartItem];
-        // voir avec filter
-        newCartList.splice(itemIndex,1);
-        setCartItem(newCartList);
-    }
-
-    const handleSetQuantity = (item, quantity) => {
-        const itemIndex = cartItem.findIndex(el => el.id === item.id && el.sizeSelected === item.sizeSelected)
-        setCartItem([...cartItem],cartItem[itemIndex].quantity = quantity)
-    }
 
      return (
-         <div>
-            <BrowserRouter>
+        <div>
+            <UserContext.Provider>
+                <BrowserRouter>
 
-                <Header setCart={setCart} cartItem={cartItem}/>
+                    <Header 
+                        openLoginModal={setIsOpenLogin}
+                        setCart={setCart} 
+                    />
 
-                <Cart 
-                    cartItems={cartItem} 
-                    isOpen={cart} 
-                    setCart={setCart} 
-                    removeItem={handleRemoveItemToCart} 
-                    setQuantity={handleSetQuantity}
-                />
+                    <Cart 
+                        isOpen={cart} 
+                        setCart={setCart} 
+                    />
 
-                    <Switch>
-                        <Route exact path='/' render={() => <Home />} />
-                        <Route exact path='/Shop' render={() => <Shop setItemToCart={handleAddItemToCart} />} />
-                        {/* <Route exact path='/Shop/:id' component={ShopItemDetails} /> */}
-                        <Route exact path='/Sale' render={() => <Sale />} />
-                        <Route exact path='/CustomCare' render={() => <CustomCare />} />
-                        <Route exact path='/StockLists' render={() => <StockLists />} />
-                        <h1>ERROR 404</h1>
-                    </Switch>
+                    {
+                        isOpenLogin && <Login closeLoginModal={setIsOpenLogin} />   
+                    }
 
-                <Footer />
-                
-            </BrowserRouter>
-         </div>
+                        <Switch>
+                            <Route exact path='/' render={() => <Home />} />
+                            <Route exact path='/Shop' render={() => <Shop />} />
+                            {/* <Route exact path='/Shop/:id' component={ShopItemDetails} /> */}
+                            <Route exact path='/Sale' render={() => <Sale />} />
+                            <Route exact path='/CustomCare' render={() => <CustomCare />} />
+                            <Route exact path='/StockLists' render={() => <StockLists />} />
+                            <h1>ERROR 404</h1>
+                        </Switch>
+
+                    <Footer />
+                    
+                </BrowserRouter>
+            </UserContext.Provider>   
+        </div>
      )
 
 }

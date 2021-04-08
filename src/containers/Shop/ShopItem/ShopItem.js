@@ -1,32 +1,32 @@
 import React , { useState } from 'react';
 import styles from './ShopItem.module.scss';
 
-const ShopItem = (props) => {
+const ShopItem = ({infos , currentItem}) => {
 
     const [openDetails , setOpenDetails] = useState(false);
-
+    
      return (   
          
             !openDetails ? 
 
                 // <Link to={{
-                //     pathname:`Shop/${props.infos.name}`,
-                //     infos : {...props.infos},
+                //     pathname:`Shop/${infos.name}`,
+                //     infos : {...infos},
                 // }}>
                     <button className={styles.item}>
 
                         <div className={styles.img_wrapper}>
-                            <img className={styles.img} src={Object.values(props.infos.img)} alt={Object.values(props.infos.img)}></img>
+                            <img className={styles.img} src={infos.image} alt={infos.image}></img>
                             <div className={styles.quickView}
-                            onClick={() => props.currentItem(props.infos)}>
+                            onClick={() => currentItem(infos)}>
                             Quick View
                             </div>
                         </div>
 
                         <div className={styles.info}>
-                            <span className={styles.name}>{props.infos.name}</span>
+                            <span style={{textTransform : 'uppercase'}} className={styles.name}>{infos.name}</span>
 
-                            <span className={styles.price}>${props.infos.price}</span>
+                            <span className={styles.price}>${infos.price}</span>
                         </div>
                     </button>
                 // </Link>        

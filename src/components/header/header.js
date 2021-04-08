@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from './header.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle , faShoppingBag} from '@fortawesome/free-solid-svg-icons';
 import MediaQuery from 'react-responsive';
 import { NavLink } from 'react-router-dom';
+import { UserContext } from '../../Context/User.context';
 
 const Header = (props) => {
 
+    const user = useContext(UserContext);
+
     const handleCartItemsNumber = () => {
-        let numberOfItem = 0;
-        props.cartItem.forEach(item => numberOfItem += item.quantity);
-        return numberOfItem;
+        // let numberOfItem = 0;
+        // props.cartItem.forEach(item => numberOfItem += item.quantity);
+        // return numberOfItem;
     }
 
      return (
@@ -45,14 +48,16 @@ const Header = (props) => {
                 <MediaQuery minWidth={1000}>
                     <div className={styles.profil}> 
                     
-                        <button className={styles.login}>
-                            <FontAwesomeIcon className={styles.icon} icon={faUserCircle} />
-                            <span>Log In</span>
+                        <button 
+                            className={styles.login} 
+                            onClick={() => props.openLoginModal(true)}>
+                                <FontAwesomeIcon className={styles.icon} icon={faUserCircle} />
+                                <span>{user.isConnected ? user.name : 'Log In'}</span>
                         </button>
                         
                         <button className={styles.cart} onClick={() => props.setCart(true)}>
                             <FontAwesomeIcon className={styles.icon} icon={faShoppingBag} />
-                            <span className={styles.numberOfitems}>{handleCartItemsNumber()}</span>
+                            <span className={styles.numberOfitems}>{user.isConnected && user.cartItemLength}</span>
                         </button>
 
                     </div>

@@ -1,17 +1,18 @@
-import React, { useState , useRef, useEffect } from 'react';
+import React, { useState , useContext } from 'react';
 import styles from './ModalItem.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faChevronUp , faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+import { UserContext } from '../../../../Context/User.context';
 
-const ModalItem = (props) => {
+const ModalItem = ({infos , close}) => {
 
-    const [quantity , setQuantity] = useState(props.infos.quantity);
+    const user = useContext(UserContext);
+
+    const [quantity , setQuantity] = useState(1);
+    const [sizeSelected, setSizeSelected] = useState(-1);
+
     const [errorSizeEmpty , setErrorSizeEmpty] = useState(false);
-
-    const handleOnChangeSelect = (e) => {
-        setErrorSizeEmpty(false);
-        props.setItemSize(props.infos.id,e.target.value)
-    }
 
     const AddOneValueInput= () => {
         setQuantity(quantity+1);
@@ -21,16 +22,31 @@ const ModalItem = (props) => {
         if (quantity > 1) setQuantity(quantity-1);
     }
 
-    useEffect(() => {
-        props.setItemQuantity(props.infos.id,quantity)
-    },[quantity])
+    const handleChangeSize = (e) => {
+        setSizeSelected(e.target.value)
+        setErrorSizeEmpty(false);
+    }
 
     const addItemToCart = () => {
-        props.setItemToCart(props.infos);
-        (props.infos.size === null) ? props.setItemSize(props.infos.id,'') : props.setItemSize(props.infos.id,null)
-        setQuantity(1)
-        // props.close('')
-        // props.setItemQuantity(props.infos.id,1);
+
+        user.updateCart++ 
+
+        let itemsToCart = {
+            userID : user.id,
+            itemID : infos.id,
+            sizeSelected : sizeSelected,
+            quantity : quantity
+        };
+        
+        itemsToCart = JSON.stringify(itemsToCart);
+
+        axios.post('http://localhost/BackEnd_PrettyGale/post/addItemToCart',itemsToCart)
+            .then(res => {
+                console.log( res);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
      return (
@@ -40,7 +56,7 @@ const ModalItem = (props) => {
             }}>
             <div className={styles.modal}>
 
-            <button className={styles.close} onClick={() => props.close('')}>
+            <button className={styles.close} onClick={() => close('')}>
                 <FontAwesomeIcon icon={faTimes}/>
             </button>
 
@@ -48,7 +64,7 @@ const ModalItem = (props) => {
 
                     <div className={styles.presentation}>
                         <div className={styles.img}>
-                            <img src={Object.values(props.infos.img)}></img>
+                            <img src={infos.image}></img>
                         </div>
                         <div className={styles.imgBonus}>
 
@@ -56,27 +72,33 @@ const ModalItem = (props) => {
                     </div>
 
                     <div className={styles.details}>
-                        <h2 className={styles.name}>{props.infos.name}</h2>
-                        <h3 className={styles.price}>${props.infos.price}</h3>
-                        <div className={styles.sku}>SKU : 004</div>
+                        <h2 style={{textTransform : 'uppercase'}} className={styles.name}>{infos.name}</h2>
+                        <h3 className={styles.price}>${infos.price}</h3>
+                        <div className={styles.sku}>SKU : 00{infos.id}</div>
 
-                        {props.infos.color !== null &&
+                        {infos.color !== null &&
                             <div>
-                                <span>Color : {props.infos.color}</span>
-                                <div className={styles.colorPicker} style={{backgroundColor : props.infos.colorCode}}></div>
+                                <span>Color : {infos.color}</span>
+                                <div className={styles.colorPicker} style={{backgroundColor : infos.color_code}}></div>
                             </div>          
                         }
                    
                         <div className={styles.selectSize_wrapper}>
                         
-                        { props.infos.size !== null &&
+                        { infos.size.length !== 0 &&
                           <>  
                           <label htmlFor='size'>Size</label>
-                            <select id='size' className={styles.selectSize}onChange={(e) => handleOnChangeSelect(e)}>
-                                {props.infos.sizeSelected === null && <option disabled selected >Select</option>}
-                                <option value='Small'>Small</option>
-                                <option value='Medium'>Medium</option>
-                                <option value='Large'>Large</option>
+                            <select id='size' className={styles.selectSize} onChange={(e) => handleChangeSize(e)}>
+                                <option disabled selected >Select</option>
+                                {
+                                    infos.size.map(size => {
+                                      return <option
+                                                key={size.size_id} 
+                                                value={size.size_id}
+                                                >{size.size_name}
+                                            </option>  
+                                    })
+                                }
                             </select>
                             {errorSizeEmpty && <span className={styles.errorInputEmpty}>Select size</span>}
                           </>               
@@ -90,7 +112,7 @@ const ModalItem = (props) => {
                                 <input 
                                     className={styles.quantity} id='quantity' type='number' min='1' 
                                     value={quantity}
-                                    onChange={(e) => props.setItemQuantity(props.infos.id,e.target.value)}
+                                    onChange={(e) => setQuantity(infos.id,e.target.value)}
                                     >
                                 </input>
                                 <div className={styles.pad}>
@@ -99,7 +121,6 @@ const ModalItem = (props) => {
                                     </button>   
                                     <button onClick={() => RemoveOneValueInput()} style={quantity === 1 ? {opacity : '.4' , cursor:'default'} : {color : ''}}>
                                         <FontAwesomeIcon icon={faChevronDown}/>
-                                        {/* <IcoFont icon='thin-down' size="2" spin='true'/> */}
                                     </button>
                                 </div>
                             </div>
@@ -107,9 +128,9 @@ const ModalItem = (props) => {
 
                         <div className={styles.addCart_wrapper}>
 
-                            <button onClick={() => {
-                                (props.infos.sizeSelected === null) ? setErrorSizeEmpty(true) : addItemToCart();
-                            }}>Add to Cart</button>
+                            <button 
+                            onClick={() => (sizeSelected === -1) ? setErrorSizeEmpty(true) : addItemToCart()}
+                            >Add to Cart</button>
 
                             <span>View More Details</span>
                             

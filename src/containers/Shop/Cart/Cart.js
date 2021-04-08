@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from './Cart.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import CartItem from './CartItem/CartItem';
 import {v4 as uuid} from "uuid"; 
+import { UserContext } from '../../../Context/User.context';
+import axios from 'axios';
 
 // ANIMER LE CHEVRON
 // ANIMER LE CHEVRON
@@ -15,25 +17,53 @@ import {v4 as uuid} from "uuid";
 
 const Cart = (props) => {
 
+    const {user , setUser} = useContext(UserContext);
+
     const [totalPrice , setTotalPrice] = useState(0);
+
+    const [cartItems , setCartItems] = useState([]);
+
+    // const [cartItems , setCartItems] = useState([]);
+
 
     const handleSetTotalPrice = () => {
 
-        const cartItems = props.cartItems;
+        const cartItemsCopy = [...cartItems];
         let total = 0;
 
-        cartItems.forEach(item => {
-            total += (item.price * item.quantity);
+        cartItemsCopy.forEach(item => {
+            total += (parseFloat(item.price) * parseInt(item.quantity));
         })
 
         setTotalPrice(Math.round(total*100)/100);  
     }
 
+    const handleReloadDataCart = () => {
+        axios.post('http://localhost/BackEnd_PrettyGale/get/cartItems',user.id)
+        .then((res) => {
+
+            setCartItems(Object.values(res.data));
+        })
+    }
+
+    useEffect(() => {
+
+        handleReloadDataCart();
+        console.log('reload')
+
+    },[user.updateCart])
+
     useEffect(() => {
 
         handleSetTotalPrice()
+
+        let numberOfItem = 0;
+
+        cartItems.forEach(item => numberOfItem += parseInt(item.quantity));
+
+        user.cartItemLength = numberOfItem;
     
-    },[props.cartItems])
+    })
 
      return (
 
@@ -53,13 +83,15 @@ const Cart = (props) => {
                 <div className={styles.content}>
 
                     <ul>
-                        {props.cartItems.length !== 0 ?
-                            props.cartItems.map(item => {
+
+                        {cartItems.length !== 0 ?
+                            cartItems.map(item => {
                                 return <CartItem 
                                     key={uuid()} 
                                     infos={item} 
-                                    removeItem={props.removeItem}
-                                    setQuantity={props.setQuantity}
+                                    reloadCart={handleReloadDataCart}
+                                    // removeItem={props.removeItem}
+                                    // setQuantity={props.setQuantity}
                                 />
                             })
                             :

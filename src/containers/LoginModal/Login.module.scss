@@ -1,0 +1,56 @@
+.login_background{
+    height: 100vh;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+    position: absolute;
+    z-index: 99999999;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .closeLoginModal{
+        background-color: transparent;
+        border: none;
+        display: flex;
+        position: absolute;
+        top: 50px;
+        right: 50px;
+        font-size: 2.5rem;
+        cursor: pointer;
+    }
+    .inputGroup{
+        display: flex;
+        flex-direction: column;
+        margin-top: 50px;
+        width: 400px;
+        input{
+
+            padding: 10px 5px;
+            border: none;
+            border-bottom: 1px solid rgba(0,0,0,.5);
+            background-color: transparent;
+        }
+     
+    }
+    .forgetPassword{
+        margin-top: 25px;
+    }
+    .succesSignUp{
+        margin-top: 10px;
+        color : green;
+        font-size: 1.3rem;
+    }
+    .error{
+        margin-top: 5px;
+        color: red;
+    }
+    .submit{
+        padding: 20px ;
+        width: 100%;
+        border: 1px solid rgba(0,0,0,.5);
+        background-color: rgb(160, 86, 154);
+        color: white;
+        margin-top: 25px;
+        cursor: pointer;
+    }
+}
