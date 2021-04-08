@@ -6,8 +6,10 @@ import axios from 'axios';
 import { UserContext } from '../../../../Context/User.context';
 
 const ModalItem = ({infos , close}) => {
+    
+    const { user , setUser } = useContext(UserContext);
 
-    const user = useContext(UserContext);
+    const [test , setTest] = useState(1)
 
     const [quantity , setQuantity] = useState(1);
     const [sizeSelected, setSizeSelected] = useState(-1);
@@ -29,7 +31,9 @@ const ModalItem = ({infos , close}) => {
 
     const addItemToCart = () => {
 
-        user.updateCart++ 
+        // A REVOIR
+        setUser(user, user.updateCart++);
+ 
 
         let itemsToCart = {
             userID : user.id,

@@ -8,7 +8,7 @@ import { UserContext } from '../../Context/User.context';
 
 const Header = (props) => {
 
-    const user = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     const handleCartItemsNumber = () => {
         // let numberOfItem = 0;

@@ -7,7 +7,7 @@ import { UserContext } from '../../../../Context/User.context';
 
 const CartItem = (props) => {
 
-    const user = useContext(UserContext);
+    const { user , setUser } = useContext(UserContext);
 
     const [quantity , setQuantity] = useState(props.infos.quantity);
     
@@ -26,8 +26,11 @@ const CartItem = (props) => {
         axios.post('http://localhost/BackEnd_PrettyGale/post/removeCartItem',itemId)
             .then(res => {
                 console.log(res.data);
+
                 // props.reloadCart();
-                user.updateCart++
+
+                // A REVOIR
+                setUser(user, user.updateCart++);
             })
     }
 

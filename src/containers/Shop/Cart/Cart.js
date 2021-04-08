@@ -17,7 +17,7 @@ import axios from 'axios';
 
 const Cart = (props) => {
 
-    const {user , setUser} = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     const [totalPrice , setTotalPrice] = useState(0);
 
@@ -51,10 +51,10 @@ const Cart = (props) => {
         handleReloadDataCart();
         console.log('reload')
 
-    },[user.updateCart])
+    },[user.isConnected,user.updateCart])
 
     useEffect(() => {
-
+        
         handleSetTotalPrice()
 
         let numberOfItem = 0;

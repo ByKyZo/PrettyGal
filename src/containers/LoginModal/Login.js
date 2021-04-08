@@ -9,7 +9,8 @@ import Loader from '../../components/loader/loader';
 
 const Login = (props) => {
 
-    const user = useContext(UserContext);
+    // const user = useContext(UserContext);
+    const { user , setUser } = useContext(UserContext);
 
     const [isAlreadyMember , setIsAlreadyMember] = useState(false);
 
@@ -67,11 +68,18 @@ const Login = (props) => {
 
             if (res.data === 'err') throw new Error('Incorrect');
 
-            user.id = res.data.userID
-            user.name = res.data.userName
-            user.mail = res.data.userMail
-            user.isConnected = true
-            user.role = res.data.role
+            const user = {
+                id : res.data.userID,
+                name : res.data.userName,
+                mail : res.data.userMail,
+                isConnected : true,
+                role : res.data.role,
+                updateCart : 1,
+                cartItemLength : null
+            }
+
+            setUser(user);
+
 
             setConnexionSuccessfull(true);
 

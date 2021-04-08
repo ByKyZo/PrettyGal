@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import './App.scss';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Header from './components/header/header';
@@ -19,10 +19,19 @@ const App = (props) => {
 
     const [isOpenLogin , setIsOpenLogin] = useState(false);
 
+    const [user , setUser] = useState({
+        id : null,
+        name : null,
+        mail : null,
+        isConnected : false,
+        role : null,
+        updateCart : 1,
+        cartItemLength : 0
+    });
 
      return (
         <div>
-            <UserContext.Provider>
+            <UserContext.Provider value={{user, setUser}}>
                 <BrowserRouter>
 
                     <Header 

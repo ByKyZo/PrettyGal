@@ -4,15 +4,17 @@ import React from 'react';
 
 // }
 
-export const UserContext = React.createContext({
-    id : null,
-    name : null,
-    mail : null,
-    isConnected : false,
-    role : null,
-    updateCart : 1,
-    cartItemLength : 0
-})
+// export const UserContext = React.createContext({
+//     id : null,
+//     name : null,
+//     mail : null,
+//     isConnected : false,
+//     role : null,
+//     updateCart : 1,
+//     cartItemLength : 0
+// })
+
+export const UserContext = React.createContext(null);
 
 
 
